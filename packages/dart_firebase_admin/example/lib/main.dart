@@ -7,7 +7,6 @@ Future<void> main() async {
     'dart-firebase-admin',
     Credential.fromApplicationDefaultCredentials(),
   );
-
   // // admin.useEmulator();
 
   final messaging = Messaging(admin);
@@ -19,6 +18,13 @@ Future<void> main() async {
       notification: Notification(
         title: 'Hello',
         body: 'World',
+      ),
+      apns: ApnsConfig(
+        payload: ApnsPayload(
+          aps: Aps(
+            sound: CriticalSound(name: 'default'),
+          ),
+        ),
       ),
     ),
   );
