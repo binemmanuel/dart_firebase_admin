@@ -414,7 +414,7 @@ class ApnsConfig {
   fmc1.ApnsConfig _toProto() {
     return fmc1.ApnsConfig(
       headers: headers,
-      payload: payload?._toProto(),
+      payload: payload?.toMap(),
       fcmOptions: fcmOptions?._toProto(),
     );
   }
@@ -438,6 +438,13 @@ class ApnsPayload {
       'aps': aps._toProto(),
       if (customData case final customData?) ...customData,
     }._cleanProto();
+  }
+
+  Map<String, Object?> toMap() {
+    return {
+      'aps': aps.toMap(),
+      if (customData case final customData?) ...customData,
+    };
   }
 }
 
@@ -489,6 +496,40 @@ class Aps {
       'thread-id': threadId,
     }._cleanProto();
   }
+
+  Map<String, Object?> toMap() {
+    final map = <String, Object?>{};
+
+    if (alert != null) {
+      map.addAll({'alert': alert?._toProto()});
+    }
+
+    if (alert != null) {
+      map.addAll({'badge': badge});
+    }
+
+    if (sound != null) {
+      map.addAll({'sound': sound?.toMap()});
+    }
+
+    if (alert != null) {
+      map.addAll({'content-available': contentAvailable});
+    }
+
+    if (alert != null) {
+      map.addAll({'mutable-content': mutableContent});
+    }
+
+    if (alert != null) {
+      map.addAll({'category': category});
+    }
+
+    if (alert != null) {
+      map.addAll({'thread-id': threadId});
+    }
+
+    return map;
+  }
 }
 
 class ApsAlert {
@@ -533,6 +574,28 @@ class ApsAlert {
       'launch-image': launchImage,
     }._cleanProto();
   }
+
+  Map<String, Object?> toMap() {
+    final map = <String, Object?>{};
+
+    if (title != null) map.addAll({'title': title});
+    if (subtitle != null) map.addAll({'subtitle': subtitle});
+    if (body != null) map.addAll({'body': body});
+    if (locKey != null) map.addAll({'loc-key': locKey});
+    if (locArgs != null) map.addAll({'loc-args': locArgs});
+    if (titleLocKey != null) map.addAll({'title-loc-key': titleLocKey});
+    if (titleLocArgs != null) map.addAll({'title-loc-args': titleLocArgs});
+    if (subtitleLocKey != null) {
+      map.addAll({'subtitle-loc-key': subtitleLocKey});
+    }
+    if (subtitleLocArgs != null) {
+      map.addAll({'subtitle-loc-args': subtitleLocArgs});
+    }
+    if (actionLocKey != null) map.addAll({'action-loc-key': actionLocKey});
+    if (launchImage != null) map.addAll({'launch-image': launchImage});
+
+    return map;
+  }
 }
 
 /// Represents a critical sound configuration that can be included in the
@@ -558,6 +621,24 @@ class CriticalSound {
       'name': name,
       'volume': volume,
     }._cleanProto();
+  }
+
+  Map<String, Object?> toMap() {
+    final map = <String, Object?>{};
+
+    if (critical != null) {
+      map.addAll({'critical': critical});
+    }
+
+    map.addAll({'name': name});
+
+    if (volume != null) {
+      map.addAll({'volume': volume});
+    }
+
+    print(map);
+
+    return map;
   }
 }
 
